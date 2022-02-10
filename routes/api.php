@@ -64,7 +64,7 @@ Route::middleware('auth:api')->group(function(){
     Route::get('/reservation/{id}/disableddates', [ReservationController::class, 'getDisabledDates']);
     Route::get('/reservation/{id}/times', [ReservationController::class, 'getTimes']);
 
-    Router::get('/myreservations', [ReservationController::class, 'getMyReservations']);
+    Route::get('/myreservations', [ReservationController::class, 'getMyReservations']);
     Route::delete('/myreservation/{id}', [ReservationController::class, 'delMyReservation']);
     
 
