@@ -17,24 +17,68 @@ class WallController extends Controller
 
         $walls = Wall::all();
 
-        foreach($walls as $wallkey => $wallvalue){
-            $walls[$wallkey]['likes'] = 0;
-            $walls[$wallkey]['liked'] = false;
+         foreach($walls as $wallKey => $wallValue){
+             $walls[$wallKey]['likes'] = 0;
+             $walls[$wallKey]['liked'] = false;
 
-            $likes = WallLike::where('id_wall', $wallValue['id'])->count();
-            $walls[$wallkey]['likes'] = $likes;
+             $likes = WallLike::where('id_wall', $wallValue['id'])->count();
+             $walls[$wallKey]['likes'] = $likes;
 
-            $meLikes = WallLike::where('id_wall', $wallValue['id'])
+             $meLikes = WallLike::where('id_wall', $wallValue['id'])
                 ->where('id_user', $user['id'])
                 ->count();
 
             if($meLikes > 0){
-                $walls[$wallkey]['liked'] = true;
+                $walls[$wallKey]['liked'] = true;
             }
-        }
+        } 
 
         $array['list'] = $walls;
 
         return $array;
     }
+
+    public function like($id){
+        $array = ['error' => ''];
+
+        $user = auth()->user();
+
+        $meLikes = WallLike::where('id_wall', $id)
+                ->where('id_user', $user['id'])
+                ->count();
+
+        if($meLikes > 0){
+            WallLike::where('id_wall', $id)
+                ->where('id_user', $user['id'])
+                ->delete();
+
+            $array['liked'] = false;
+        }else{
+            $newLike = new WallLike();
+            $newLike->id_wall = $id;
+            $newLike->id_user = $user['id'];
+            $newLike->save();
+            $array['liked'] = true;
+        }                
+
+        $array['likes'] = WallLike::where('id_wall', $id)->count();
+
+        return $array;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
