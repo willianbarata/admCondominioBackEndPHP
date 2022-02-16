@@ -114,4 +114,52 @@ class UnitController extends Controller
 
         return $array;
     }
+
+    public function removePerson($id, Request $request){
+        $array = ['error' => ''];
+        $idItem = $request->input('id');
+        if($idItem){
+
+            UnitPeople::where('id', $id)
+                ->where('id_unit', $id)
+                ->delete();
+        }else{
+            $array['error'] = 'ID inexistente';
+            return $array;
+        }
+
+        return $array;
+    }
+
+    public function removeVehicle($id, Request $request){
+        $array = ['error' => ''];
+        $idItem = $request->input('id');
+        if($idItem){
+
+            UnitVehicles::where('id', $id)
+                ->where('id_unit', $id)
+                ->delete();
+        }else{
+            $array['error'] = 'ID inexistente';
+            return $array;
+        }
+
+        return $array;
+    }
+
+    public function removePet($id, Request $request){
+        $array = ['error' => ''];
+        $idItem = $request->input('id');
+        if($idItem){
+
+            UnitPets::where('id', $id)
+                ->where('id_unit', $id)
+                ->delete();
+        }else{
+            $array['error'] = 'ID inexistente';
+            return $array;
+        }
+
+        return $array;
+    }
 }
