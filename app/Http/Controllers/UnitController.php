@@ -64,4 +64,54 @@ class UnitController extends Controller
         return $array;
     }
 
+
+    public function addVehicle($id, Request $request){
+        $array = ['error' => ''];
+
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'modelo' => 'required'
+        ]);
+      
+        if( !$validator->fails() ){
+            $name = $request->input('name');
+            $modelo = $request->input('modelo');
+            
+            $newVehicle = new UnitVehicles();
+            $newVehicle->id_unit = $id;
+            $newVehicle->name = $name;
+            $newVehicle->modelo = $modelo;
+            $newVehicle->save();
+        }else{
+            $array['error'] = $validator->errors()->first();
+            return $array;
+        }
+
+        return $array;
+    }
+
+    public function addPet($id, Request $request){
+        $array = ['error' => ''];
+
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'race' => 'required'
+        ]);
+      
+        if( !$validator->fails() ){
+            $name = $request->input('name');
+            $race = $request->input('race');
+            
+            $newPets = new UnitPets();
+            $newPets->id_unit = $id;
+            $newPets->name = $name;
+            $newPets->race = $race;
+            $newPets->save();
+        }else{
+            $array['error'] = $validator->errors()->first();
+            return $array;
+        }
+
+        return $array;
+    }
 }
