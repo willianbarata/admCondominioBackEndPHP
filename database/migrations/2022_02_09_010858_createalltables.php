@@ -41,6 +41,13 @@ class Createalltables extends Migration
             $table->string('race');
         });
 
+        Schema::create('unitvehicles', function(Blueprint $table) {
+            $table->id();
+            $table->integer('id_unit');
+            $table->string('name');
+            $table->string('modelo');
+        });
+
         Schema::create('walls', function(Blueprint $table) {
             $table->id();
             $table->string('title');
@@ -120,6 +127,7 @@ class Createalltables extends Migration
         Schema::dropIfExists('units');
         Schema::dropIfExists('unitpeoples');
         Schema::dropIfExists('unitpets');
+        Schema::dropIfExists('unitvehicles');
         Schema::dropIfExists('walls');
         Schema::dropIfExists('walllikes');
         Schema::dropIfExists('docs');
