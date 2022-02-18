@@ -131,7 +131,7 @@ class ReservationController extends Controller
                     $newReservation = new Reservations();
                     $newReservation->id_unit = $property;
                     $newReservation->id_area = $id;
-                    $newReservation->reservation_date.' '.$time;
+                    $newReservation->reservation_date= $date.' '.$time;
                     $newReservation->save();
 
                 }else{
